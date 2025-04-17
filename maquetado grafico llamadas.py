@@ -11,8 +11,11 @@ csv_path = os.path.join(output_dir, 'call_logs_limpio_bigquery.csv')
 
 # Descomprimir si aún no existe el CSV
 if not os.path.exists(csv_path):
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-        zip_ref.extractall(output_dir)
+    if os.path.exists(zip_path):
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(output_dir)
+    else:
+        st.error(f"El archivo ZIP {zip_path} no se encuentra en el directorio.")
 
 # Cargar el DataFrame
 @st.cache_data
