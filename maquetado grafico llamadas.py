@@ -69,7 +69,7 @@ fig_tiempo = px.bar(df_tiempo_agg, x="tipo_llamada", y="duracion_segundos",
                     title=f"Duración total de llamadas en {mes_seleccionado} {ano_seleccionado}",
                     labels={"tipo_llamada": "Tipo de llamada", "duracion_segundos": "Duración (segundos)"},
                     color="tipo_llamada", color_discrete_map={"recibida": "green", "realizada": "blue"})
-fig_tiempo.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+fig_tiempo.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white", title={'x': 0.5})
 st.plotly_chart(fig_tiempo)
 
 # Cantidad de llamadas por tipo en ese mes y año
@@ -80,7 +80,7 @@ fig_cantidad = px.bar(df_cantidad_agg, x="tipo_llamada", y="cantidad",
                       title=f"Cantidad de llamadas en {mes_seleccionado} {ano_seleccionado}",
                       labels={"tipo_llamada": "Tipo de llamada", "cantidad": "Cantidad"},
                       color="tipo_llamada", color_discrete_map={"recibida": "green", "realizada": "blue", "perdida": "red"})
-fig_cantidad.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+fig_cantidad.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white", title={'x': 0.5})
 st.plotly_chart(fig_cantidad)
 
 # Gráfico pastel: Cantidad total por tipo de llamada
@@ -90,7 +90,7 @@ df_cantidades_total = df_cantidades_total.groupby("tipo_llamada").size().reset_i
 fig_cantidad_total = px.pie(df_cantidades_total, values="cantidad", names="tipo_llamada",
                             title="Cantidad total por tipo de llamada",
                             color_discrete_map={"recibida": "green", "realizada": "blue", "perdida": "red"})
-fig_cantidad_total.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+fig_cantidad_total.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white", title={'x': 0.5})
 st.plotly_chart(fig_cantidad_total)
 
 # Contador de llamadas totales en ese mes/año
@@ -105,7 +105,7 @@ fig_promedio = px.bar(df_promedio_agg, x="tipo_llamada", y="duracion_segundos",
                       title=f"Duración promedio de llamadas en {mes_seleccionado} {ano_seleccionado}",
                       labels={"tipo_llamada": "Tipo de llamada", "duracion_segundos": "Duración promedio (segundos)"},
                       color="tipo_llamada", color_discrete_map={"recibida": "green", "realizada": "blue", "perdida": "red"})
-fig_promedio.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+fig_promedio.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white", title={'x': 0.5})
 st.plotly_chart(fig_promedio)
 
 # Distribución de llamadas por hora
@@ -115,6 +115,6 @@ df_distribucion_hora = df_filtrado.groupby("hora").size().reset_index(name="cant
 fig_distribucion_hora = px.line(df_distribucion_hora, x="hora", y="cantidad",
                                  title=f"Distribución de llamadas por hora en {mes_seleccionado} {ano_seleccionado}",
                                  labels={"hora": "Hora", "cantidad": "Cantidad de llamadas"})
-fig_distribucion_hora.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+fig_distribucion_hora.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white", title={'x': 0.5})
 st.plotly_chart(fig_distribucion_hora)
 
