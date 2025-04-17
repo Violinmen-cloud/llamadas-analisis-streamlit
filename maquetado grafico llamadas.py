@@ -96,3 +96,25 @@ st.plotly_chart(fig_cantidad_total)
 # Contador de llamadas totales en ese mes/año
 total_llamadas_filtradas = len(df_filtrado)
 st.metric(label="Total de registros en el mes/año seleccionado", value=total_llamadas_filtradas)
+
+# Duración promedio de llamadas
+df_promedio = df_filtrado[df_filtrado["tipo_llamada"] != "otro"]
+df_promedio_agg = df_promedio.groupby("tipo_llamada")["duracion_segundos"].mean().reset_index()
+
+fig_promedio = px.bar(df_promedio_agg, x="tipo_llamada", y="duracion_segundos",
+                      title=f"Duración promedio de llamadas en {mes_seleccionado} {ano_seleccionado}",
+                      labels={"tipo_llamada": "Tipo de llamada", "duracion_segundos": "Duración promedio (segundos)"},
+                      color="tipo_llamada", color_discrete_map={"recibida": "green", "realizada": "blue", "perdida": "red"})
+fig_promedio.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+st.plotly_chart(fig_promedio)
+
+# Distribución de llamadas por hora
+df_filtrado["hora"] = df_filtrado["fecha_datetime"].dt.hour
+df_distribucion_hora = df_filtrado.groupby("hora").size().reset_index(name="cantidad")
+
+fig_distribucion_hora = px.line(df_distribucion_hora, x="hora", y="cantidad",
+                                 title=f"Distribución de llamadas por hora en {mes_seleccionado} {ano_seleccionado}",
+                                 labels={"hora": "Hora", "cantidad": "Cantidad de llamadas"})
+fig_distribucion_hora.update_layout(title_x=0.5, title_font_size=20, title_font_family="Arial", template="plotly_white")
+st.plotly_chart(fig_distribucion_hora)
+
