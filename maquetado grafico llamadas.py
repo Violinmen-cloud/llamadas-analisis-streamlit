@@ -60,7 +60,7 @@ mes_seleccionado = st.selectbox("Selecciona un mes", meses_disponibles)
 mes_num = list(meses.keys())[list(meses.values()).index(mes_seleccionado)]
 df_filtrado = df[(df["ao"] == ano_seleccionado) & (df["mes"] == mes_num)]
 
-Tiempo de llamadas recibidas y realizadas
+#Tiempo de llamadas recibidas y realizadas
 df_tiempo = df_filtrado[df_filtrado["tipo_llamada"].isin(["recibida", "realizada"])]
 df_tiempo_agg = df_tiempo.groupby("tipo_llamada")["duracion_segundos"].sum().reset_index()
 
